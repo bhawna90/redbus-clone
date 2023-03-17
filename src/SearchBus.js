@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { InputGroup, Form, Button } from "react-bootstrap";
 import {BsArrowLeftRight} from "react-icons/bs"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
+import BusContext from "./BusContext";
 
 const SearchBus = () => {
-    const [from, setFrom] =useState("")
-    const [to, setTo] = useState("")
+    const {from, to ,setFrom, setTo, setBuses, busLoader, setBusLoader} = useContext(BusContext)
     const [date, setDate] = useState("")
     const navigate = useNavigate()
 
@@ -16,12 +16,22 @@ const SearchBus = () => {
         setFrom(toPlace)
         setTo(fromPlace)
     }
-    function searchBuses(){
+    async function fetchBuses(){
+      //fetch api call for buses
+      setBusLoader(true)
+      const response = await fetch(`https://content.newtonschool.co/v1/pr/63b70222af4f30335b4b3b9a/buses?source=${from}&destination=${to}`) 
+      const data = await response.json()
+      console.log(data);
+      setBuses(data)
+      setBusLoader(false)
+  }
+    async function searchBuses(){
       if(!from||!to||!date){
         //toast should appear with error msg
         toast.error("All the fields are required.")
       }
       else{
+        await fetchBuses()
         navigate("/results")
       }
     }
