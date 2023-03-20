@@ -8,6 +8,8 @@ import Home from "./Home";
 import SearchResult from "./SearchResult";
 import BusContext from "./BusContext";
 import {useState} from "react"
+import SeatSelection from "./SeatSelection";
+import Journey from "./Journey";
 
 function App() {
   const [from, setFrom] =useState("")
@@ -25,7 +27,11 @@ function App() {
           <Route path="/" element={<Home></Home>}></Route>
           <Route
             path="/results"
-            element={<SearchResult></SearchResult>}
+            element={<Journey Component={SearchResult}></Journey>}
+          ></Route>
+          <Route
+            path="/book-seats"
+            element={<Journey Component={SeatSelection}></Journey>}
           ></Route>
         </Routes>
       </BrowserRouter>

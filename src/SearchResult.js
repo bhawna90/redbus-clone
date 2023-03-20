@@ -9,11 +9,6 @@ function SearchResult(){
     // const [loader, setLoader] = useState(false)
     const {from, to, buses, setBuses, busLoader} = useContext(BusContext)
     const navigate= useNavigate()
-    useEffect(()=>{
-        if(!from||!to){
-            navigate("/")
-        }
-    },[])
     // useEffect(()=>{
     //     async function fetchBuses(){
     //         //fetch api call for buses
