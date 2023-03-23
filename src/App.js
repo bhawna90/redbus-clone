@@ -10,6 +10,7 @@ import BusContext from "./BusContext";
 import {useState} from "react"
 import SeatSelection from "./SeatSelection";
 import Journey from "./Journey";
+import Login from "./Login";
 
 function App() {
   const [from, setFrom] =useState("")
@@ -20,11 +21,9 @@ function App() {
     <div className="App">
       <BusContext.Provider value={{from, to, setFrom, setTo, buses, setBuses, busLoader, setBusLoader}}>
       <BrowserRouter>
-        <Toaster></Toaster>
-        <NavBar></NavBar>
-        <SearchBus></SearchBus>
         <Routes>
-          <Route path="/" element={<Home></Home>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
+          <Route path="/" element={<Journey Component={Home}></Journey>}></Route>
           <Route
             path="/results"
             element={<Journey Component={SearchResult}></Journey>}
